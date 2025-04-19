@@ -1,0 +1,66 @@
+Table LOCATIONS {
+  LOCATION_ID varchar
+  COUNTRY_CODE varchar
+  COUNTRY_FULL_NAME varchar
+  CITY varchar
+  ADDRESS varchar
+  ZIP_CODE int
+  STATE varchar
+}
+
+Table ORDERS {
+  ORDER_ID varchar
+  USER_ID varchar
+  ORDER_DATE timestamp
+  SHIPPING_LOCATION_ID varchar
+  ORDER_STATUS varchar
+  PAYMENT_METHOD varchar
+  TOTAL_AMOUNT decimal
+  UPDATED_AT timestamp
+}
+
+Table USER_EVENTS {
+  EVENT_ID varchar
+  USER_ID varchar
+  EVENT_TYPE varchar
+  EVENT_TIMESTAMP timestamp
+  PAGE_URL varchar
+  PRODUCT_ID varchar
+  ADDITIONAL_DETAILS varchar
+}
+
+Table PRODUCTS {
+  ID varchar [pk]
+  NAME varchar
+  CATEGORY varchar
+  DESCRIPTION varchar
+  PRICE decimal
+  DIMENSIONS varchar
+  MATERIAL varchar
+  STOCK int
+}
+
+Table USERS {
+  USER_ID varchar [pk]
+  FIRST_NAME varchar
+  LAST_NAME varchar
+  EMAIL varchar
+  CREATED_AT timestamp
+}
+
+Table ORDER_ITEMS {
+  ORDER_ITEM_ID varchar [pk]
+  ORDER_ID varchar
+  PRODUCT_ID varchar
+  QUANTITY int
+  UNIT_PRICE decimal
+  DISCOUNT int
+  LINE_TOTAL decimal
+}
+
+Ref: ORDERS.USER_ID > USERS.USER_ID
+Ref: ORDERS.SHIPPING_LOCATION_ID > LOCATIONS.LOCATION_ID
+Ref: ORDER_ITEMS.ORDER_ID > ORDERS.ORDER_ID
+Ref: ORDER_ITEMS.PRODUCT_ID > PRODUCTS.ID
+Ref: USER_EVENTS.USER_ID > USERS.USER_ID
+Ref: USER_EVENTS.PRODUCT_ID > PRODUCTS.ID
